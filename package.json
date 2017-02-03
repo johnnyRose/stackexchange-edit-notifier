@@ -1,0 +1,34 @@
+{
+  "name": "stackexchange-edit-notifier",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.14.1",
+    "express-promise-router": "^1.1.1",
+    "knex": "^0.12.6",
+    "node-cron": "^1.1.2",
+    "pug": "^2.0.0-beta10",
+    "sequelize": "^3.30.1",
+    "sqlite3": "^3.1.8"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
+  "scripts": {
+    "start": "knex migrate:latest && node ./web/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo \"test\" && exit 0",
+    "nodemon": "nodemon --ignore \"/web/public\" --exec npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnnyRose/stackexchange-edit-notifier.git"
+  },
+  "author": "John Rosewicz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/johnnyRose/stackexchange-edit-notifier/issues"
+  },
+  "homepage": "https://github.com/johnnyRose/stackexchange-edit-notifier#readme"
+}
