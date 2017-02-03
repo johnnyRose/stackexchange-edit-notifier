@@ -58,3 +58,6 @@ typings/
 # knexfile credentials
 knexfile.js
 
+# database
+dev.sqlite3
+
