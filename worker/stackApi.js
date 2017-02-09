@@ -4,20 +4,25 @@ var sleep = require('sleep');
 
 var baseUrl = "https://api.stackexchange.com/2.2/";
 
+var userIdsToWatch = [2840103];
+
 function getAllRecentlyEditedPosts() {
-    getAllRecentlyEditedPostEvents()
-        .then(function (postIds) {
-            var postsPath = `posts/${postIds}?pagesize=100&order=desc&sort=activity&site=stackoverflow&filter=!0S2DU84KBii0TP2pzjFB-BAaU`;
-            var url = baseUrl + postsPath;
-            
-            queryStackExchangeApi(url).then(function (results) {
-               results.items = results.items.filter(function (item) {
-                  return item.owner.user_id !== item.last_editor.user_id; 
-               });
-               
-               console.log(results);
+    return new Promise(function (resolve, reject) {
+        getAllRecentlyEditedPostEvents()
+            .then(function (postIds) {
+                var postsPath = `posts/${postIds}?pagesize=100&order=desc&sort=activity&site=stackoverflow&filter=!0S2DU84KBii0TP2pzjFB-BAaU`;
+                var url = baseUrl + postsPath;
+                
+                queryStackExchangeApi(url).then(function (results) {
+                   results.items = results.items.filter(function (item) {
+                      return (item.owner.user_id !== item.last_editor.user_id &&
+                            userIdsToWatch.indexOf(item.owner.user_id) >= 0) || item.owner.user_id == 2840103; 
+                   });
+                   
+                   resolve(results);
+                });
             });
-        });
+    });
 }
 
 function getAllRecentlyEditedPostEvents(postIds, pageNumber) {
@@ -35,13 +40,15 @@ function getAllRecentlyEditedPostEvents(postIds, pageNumber) {
                 }));
             
             if (results.has_more) {
-                // We set a timeout here to make sure we don't violate the backoff value if it is returned in the results.
+                // Make sure we don't violate the backoff value if it is returned in the results.
                 // Having backoff set means the application must not make the same request for that number of seconds.
                 // https://api.stackexchange.com/docs/throttle
-                //setTimeout(function () {
-                    // recursively call to get around annoying promises in loops
-                    return getAllRecentlyEditedPostEvents(postIds, pageNumber + 1);
-                //}, results.backoff * 1000);
+                if (results.backoff) {
+                    console.log(`Backing off for ${results.backoff} seconds.`);
+                    sleep.sleep(results.backoff);
+                }
+                // recursively call to get around annoying promises in loops
+                return getAllRecentlyEditedPostEvents(postIds, pageNumber + 1);
             } else {
                 return postIds.join(";");
             }
@@ -70,18 +77,18 @@ function getRecentlyEditedPostEvents(pageNumber) {
 }
 
 function queryStackExchangeApi(url) {
-    
     // This is not a secret value.
     var key = "cqqgtR6JWKsaLYQN2N6))Q((";
     
-    // Store our access token in an environment variable.
+    // Store our access token in an environment variable. This is set in /etc/profile
+    // Go here to get a new access token: https://stackexchange.com/oauth/dialog?client_id=8944&scope=no_expiry&redirect_uri=http://johnrosewicz.com
     var accessToken = process.env.STACK_ACCESS_TOKEN;
     
     url += `&key=${key}&access_token=${accessToken}`;
-    
+
     return new Promise(function (resolve, reject) {
+        // amills001c is my favorite person for writing this part
         // https://gist.github.com/ORESoftware/9d27e3ed392e2eefb123
-        //console.log(`Querying ${url}`);
         return getGzipped(url, function (err, data) {
             if (err) {
                 reject(Error(err && err.error_message));
