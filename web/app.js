@@ -20,6 +20,27 @@ app.set('views', path.join(__dirname, '/views'));
 // configure routes
 app.use('/', homeRoute);
 
+
+var knex = require('knex');
+var knexFile = require('../knexfile');
+
+var user = {
+    email: 'jmr1792@yahoo.com',
+    userId: 2840103,
+    site: 'stackoverflow',
+    insertDate: new Date()
+};
+
+var db = knex(knexFile.development);
+
+//db('users').insert(user).then(function () {
+
+//});
+
+db('users').select().then(function (results) {
+    console.log(results);
+}); 
+
 app.listen(port, function () {
    console.log(`Listening on port ${port}`);
 });
