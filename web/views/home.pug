@@ -1,4 +1,18 @@
 extends layout.pug
 
 block content
-  h2 home.pug
+  h1 Stack Exchange Edit Notifier
+    
+  p.
+    This tool allows you to receive notifications when your
+    posts are edited.
+      
+  form(method="post")
+    input(type="text", name="site", placeholder="Site, e.g. stackoverflow", class="form-control")
+    br
+    input(type="number", name="userId", placeholder="User ID")
+    br
+    input(type="text", name="email", placeholder="Email Address")
+    br
+    input(type="submit" value="Submit")
+    
