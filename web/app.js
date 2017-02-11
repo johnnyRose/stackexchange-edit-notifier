@@ -9,11 +9,12 @@ var bodyParser = require('body-parser');
 var homeRoute = require('./routes/home.js');
 var worker = require('../worker/worker');
 
+app.use(express.static(path.join(__dirname, 'content')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // start background worker
-//worker.start();
+worker.start();
 
 // set the view engine to pug
 app.set('view engine', 'pug');

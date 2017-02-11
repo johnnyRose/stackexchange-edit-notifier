@@ -21,7 +21,7 @@
     "nodemon": "^1.11.0"
   },
   "scripts": {
-    "start": " cp node_modules/bootstrap/dist/css/bootstrap.min.css web/content/bootstrap.min.css && knex migrate:latest && node ./web/app.js",
+    "start": "knex migrate:latest && node ./web/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "echo \"test\" && exit 0",
     "nodemon": "nodemon --ignore \"/web/public\" --exec npm run start"

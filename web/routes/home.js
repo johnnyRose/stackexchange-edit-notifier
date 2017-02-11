@@ -8,7 +8,6 @@ router.get('/', function (request, response) {
 });
 
 router.post('/', function (request, response) {
-    console.log(request.body);
     var user = {
         email: request.body.email,
         userId: request.body.userId,
@@ -21,6 +20,8 @@ router.post('/', function (request, response) {
             console.log(r);
         })
     });
+    
+    response.render('home');
 });
 
 module.exports = router;

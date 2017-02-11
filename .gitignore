@@ -61,5 +61,3 @@ knexfile.js
 # database
 dev.sqlite3
 
-# ignore css for now, will fix this later
-/web/content/*

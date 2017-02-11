@@ -1,18 +1,25 @@
 extends layout.pug
 
 block content
-  h1 Stack Exchange Edit Notifier
+  .container
     
-  p.
-    This tool allows you to receive notifications when your
-    posts are edited.
+    p.
+      This tool allows you to receive email notifications when your
+      posts on the Stack Exchange Network are edited.
+      This includes <a href="http://stackoverflow.com/">Stack Overflow</a>, <a href="http://superuser.com/">Super User</a>,
+      <a href="http://serverfault.com/">Server Fault</a>, and many more.
       
-  form(method="post")
-    input(type="text", name="site", placeholder="Site, e.g. stackoverflow", class="form-control")
-    br
-    input(type="number", name="userId", placeholder="User ID")
-    br
-    input(type="text", name="email", placeholder="Email Address")
-    br
-    input(type="submit" value="Submit")
+    p.
+      Fill out the form below with the site you want notifications for, your user ID on that site, and an email address to notify.
+      You'll immediately begin receiving email notifications any time another user modifies one of your posts.
+    form(method="post")
+      .row
+        input(type="text", name="site", placeholder="Site, e.g. stackoverflow")
+      .row
+        input(type="number", name="userId", placeholder="User ID")
+      .row
+        input(type="text", name="email", placeholder="Email Address")
+      .row
+        input(type="submit" value="Start Receiving Notifications")
+
     
