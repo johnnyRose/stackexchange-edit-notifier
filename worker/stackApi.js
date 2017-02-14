@@ -1,10 +1,12 @@
 var https = require("https");
 var zlib = require("zlib");
 var sleep = require('sleep');
+var knex = require('knex');
+var knexFile = require('../knexfile');
 
 var baseUrl = "https://api.stackexchange.com/2.2/";
 
-var userIdsToWatch = [2840103];
+var db = knex(knexFile.development);
 
 function getAllRecentlyEditedPosts() {
     return new Promise(function (resolve, reject) {
@@ -14,12 +16,16 @@ function getAllRecentlyEditedPosts() {
                 var url = baseUrl + postsPath;
                 
                 queryStackExchangeApi(url).then(function (results) {
-                   results.items = results.items.filter(function (item) {
-                      return (item.owner.user_id !== item.last_editor.user_id &&
-                            userIdsToWatch.indexOf(item.owner.user_id) >= 0) || item.owner.user_id == 2840103; 
-                   });
-                   
-                   resolve(results);
+                    db('users').select().then(function (users) {
+                        results.items = results.items.filter(function (item) {
+                            return (item.owner.user_id !== item.last_editor.user_id &&
+                                users.some(function (user) {
+                                    return item.owner.user_id === user.userId;
+                                }));
+                        });
+                        
+                        resolve(results);
+                    });
                 });
             });
     });
@@ -39,7 +45,7 @@ function getAllRecentlyEditedPostEvents(postIds, pageNumber) {
                     return item.event_id;
                 }));
             
-            if (results.has_more) {
+            if (results.has_more === true && results.quota_remaining > 0) {
                 // Make sure we don't violate the backoff value if it is returned in the results.
                 // Having backoff set means the application must not make the same request for that number of seconds.
                 // https://api.stackexchange.com/docs/throttle
@@ -62,7 +68,12 @@ function getRecentlyEditedPostEvents(pageNumber) {
     // These are immutable and safe to hard code: https://api.stackexchange.com/docs/filters
     var filter = "!9YdnSOd9y";
     
-    var eventsPath = `events?page=${pageNumber}&pagesize=${pageSize}&site=stackoverflow&filter=${filter}`;
+    // Since we query every minute, we only need to parse through events created in the last 60 seconds.
+    var now = new Date();
+    now.setMinutes(now.getMinutes() - 1);
+    var since = Math.floor(now.getTime() / 1000);
+    
+    var eventsPath = `events?page=${pageNumber}&pagesize=${pageSize}&site=stackoverflow&filter=${filter}&since=${since}`;
     var url = baseUrl + eventsPath;
     
     return new Promise(function (resolve, reject) {

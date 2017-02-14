@@ -2,7 +2,6 @@ var port = process.env.PORT || 3000;
 
 var express = require('express');
 var app = express();
-var pug = require('pug');
 var path = require('path');
 var bodyParser = require('body-parser');
 
@@ -24,15 +23,6 @@ app.set('views', path.join(__dirname, '/views'));
 
 // configure routes
 app.use('/', homeRoute);
-
-var knex = require('knex');
-var knexFile = require('../knexfile');
-
-var db = knex(knexFile.development);
-
-db('users').select().then(function (results) {
-    console.log(results);
-}); 
 
 app.listen(port, function () {
    console.log(`Listening on port ${port}`);
