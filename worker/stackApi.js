@@ -1,12 +1,10 @@
 var https = require("https");
 var zlib = require("zlib");
 var sleep = require('sleep');
-var knex = require('knex');
-var knexFile = require('../knexfile');
 
 var baseUrl = "https://api.stackexchange.com/2.2/";
 
-var db = knex(knexFile.development);
+var db = require('../worker/knexDb');
 
 function getAllRecentlyEditedPosts() {
     return new Promise(function (resolve, reject) {

@@ -1,6 +1,4 @@
-var knex = require("knex");
-var knexFile = require("../../knexfile");
-var db = knex(knexFile.development);
+var db = require('../../worker/knexDb');
 var router = require("express-promise-router")();
 
 router.get('/', function (request, response) {
@@ -18,7 +16,7 @@ router.post('/', function (request, response) {
     db('users').insert(user).then(function () {
         db('users').select().then(function (r) {
             console.log(r);
-        })
+        });
     });
     
     response.render('home');
