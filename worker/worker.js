@@ -1,6 +1,6 @@
 var cron = require('node-cron');
 var stackApi = require("./stackApi");
-var emailer = require('emailer');
+var emailer = require('./emailer');
 
 var worker = {
     

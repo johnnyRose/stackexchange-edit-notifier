@@ -1,4 +1,4 @@
-var db = require('knexDb');
+var db = require('./knexDb');
 
 var emailer = {
     sendEmailAlerts: function (posts) {
