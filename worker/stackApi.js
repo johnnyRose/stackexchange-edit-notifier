@@ -6,6 +6,8 @@ var baseUrl = "https://api.stackexchange.com/2.2/";
 
 var db = require('../worker/knexDb');
 
+var sitesFilter = '!)Qpa1bGM8fkx6U71QBJr..Pw';
+
 function getAllRecentlyEditedPosts() {
     return new Promise(function (resolve, reject) {
         getAllRecentlyEditedPostEvents()

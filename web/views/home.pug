@@ -2,7 +2,6 @@ extends layout.pug
 
 block content
   .container
-    
     p.
       This tool allows you to receive email notifications when your
       posts on the Stack Exchange Network are edited.
@@ -14,7 +13,9 @@ block content
       You'll immediately begin receiving email notifications any time another user modifies one of your posts.
     form(method="post")
       .row
-        input(type="text", name="site", placeholder="Site, e.g. stackoverflow")
+        select(name="site")
+          each val in [1, 2, 3, 4, 5]
+            option(value="test value") Test Display #{val}
       .row
         input(type="number", name="userId", placeholder="User ID")
       .row

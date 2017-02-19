@@ -13,6 +13,7 @@
     "knex": "^0.12.6",
     "node-cron": "^1.1.2",
     "pug": "^2.0.0-beta10",
+    "select2": "^4.0.3",
     "sendgrid": "^4.7.1",
     "sequelize": "^3.30.1",
     "sleep": "^5.1.0",
@@ -22,10 +23,10 @@
     "nodemon": "^1.11.0"
   },
   "scripts": {
-    "start": "knex migrate:latest && node ./web/app.js",
+    "start": "cp node_modules/jquery/dist/jquery.min.js web/content/js/jquery.min.js && cp node_modules/select2/dist/css/select2.min.css web/content/css/select2.min.css && cp node_modules/select2/dist/js/select2.min.js web/content/js/select2.min.js && knex migrate:latest && node ./web/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "echo \"test\" && exit 0",
-    "nodemon": "nodemon --ignore \"/web/public\" --exec npm run start"
+    "nodemon": "nodemon --ignore \"/web/content\" --exec npm run start"
   },
   "repository": {
     "type": "git",

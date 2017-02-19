@@ -12,10 +12,15 @@ html
     <!-- Milligram CSS minified -->
     <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css" />
     
+    <link rel="stylesheet" href="/css/select2.min.css" />
+    
     <link rel="stylesheet" href="/css/main.css" />
+    
 
     block scripts
-      script(src='/jquery.js')
+      script(src="/js/jquery.min.js")
+      script(src="/js/select2.min.js")
+      script(src="/js/main.js")
       
   body
     <div class="navbar">
@@ -35,26 +40,28 @@ html
         div.container
           div.row
             .column-75
-              h2.footer-title About
-              p This is my first project built in Node.js, so I tried to experiment with several new things. 
-              p.
-                First, and perhaps most critical, this app utilizes the <a href="https://api.stackexchange.com/">Stack Exchange API</a> 
-                and <a href="https://www.npmjs.com/package/node-cron">node-cron</a> together as the background worker. 
-                I'm using <a href="https://www.npmjs.com/package/sqlite3">SQLite 3</a> for my database and <a href="https://www.npmjs.com/package/knex">Knex.js</a>
-                as my schema and query builder. 
-                This app uses <a href="https://www.npmjs.com/package/express">Express.js</a> and 
-                <a href="https://www.npmjs.com/package/express-promise-router">express-promise-router</a> for its routing.
-              p. 
-                Other tools I'm using include <a href="https://www.npmjs.com/package/body-parser">body-parser</a>,
-                <a href="https://www.npmjs.com/package/sleep">Sleep</a>, 
-                <a href="https://www.npmjs.com/package/pug">Pug</a>, 
-                <a href="https://www.npmjs.com/package/nodemon">Nodemon</a>,
-                and finally, <a href="https://milligram.github.io/">Milligram</a> for the beautiful CSS.
-                
-              p You can check out my source code on <a href="https://github.com/johnnyRose/stackexchange-edit-notifier">GitHub</a>.
+              .container
+                h2.footer-title About
+                p This is my first project built in Node.js, so I tried to experiment with several new things. 
+                p.
+                  First, and perhaps most critical, this app utilizes the <a href="https://api.stackexchange.com/">Stack Exchange API</a> 
+                  and <a href="https://www.npmjs.com/package/node-cron">node-cron</a> together as the background worker. 
+                  I'm using <a href="https://www.npmjs.com/package/sqlite3">SQLite 3</a> for my database and <a href="https://www.npmjs.com/package/knex">Knex.js</a>
+                  as my schema and query builder. 
+                  This app uses <a href="https://www.npmjs.com/package/express">Express.js</a> and 
+                  <a href="https://www.npmjs.com/package/express-promise-router">express-promise-router</a> for its routing.
+                p. 
+                  Other tools I'm using include <a href="https://www.npmjs.com/package/body-parser">body-parser</a>,
+                  <a href="https://www.npmjs.com/package/sleep">Sleep</a>, 
+                  <a href="https://www.npmjs.com/package/pug">Pug</a>, 
+                  <a href="https://www.npmjs.com/package/nodemon">Nodemon</a>,
+                  and finally, <a href="https://milligram.github.io/">Milligram</a> for the beautiful CSS.
+                  
+                p You can check out my source code on <a href="https://github.com/johnnyRose/stackexchange-edit-notifier">GitHub</a>.
                 
             .column-25
-              h2.footer-title Contact
-              ul.list-unstyled
-                li <a href="http://johnrosewicz.com">http://johnrosewicz.com</a>
-                li <a href="mailto:john.rosewicz@gmail.com">john.rosewicz@gmail.com</a>
+              .container
+                h2.footer-title Contact
+                ul.list-unstyled
+                  li <a href="http://johnrosewicz.com">http://johnrosewicz.com</a>
+                  li <a href="mailto:john.rosewicz@gmail.com">john.rosewicz@gmail.com</a>

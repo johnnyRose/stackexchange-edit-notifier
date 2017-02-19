@@ -31,7 +31,7 @@ app.listen(port, function () {
 
 
 
-var helper = require('sendgrid').mail;
+/*var helper = require('sendgrid').mail;
 var from_email = new helper.Email('stack-alerts@johnrosewicz.com', 'StackAlerts');
 var to_email = new helper.Email('jmr1792@yahoo.com');
 var subject = "Post Edited on Stack Overflow";
@@ -50,4 +50,4 @@ sg.API(request, function(error, response) {
   console.log(response.body);
   console.log(response.headers);
 });
-console.log(__dirname);
+*/

@@ -31,7 +31,54 @@ ul.list-unstyled li, ol.list-unstyled li {
     list-style: none;
 }
 
-input {
+
+
+
+.select2 {
+    margin-bottom: 15px;
+}
+
+select {
+    border: 1px solid #9b4dca;
+}
+
+input, .select2-container--default .select2-selection--single .select2-selection__rendered {
+    font-weight: 500;
+    font-family: "Roboto";
+}
+
+.select2-selection__rendered.select2-selection--focus {
+    border: 1px solid #9b4dca;
+    border-radius: 4px;
+}
+
+.select2-dropdown {
+    border: 1px solid #9b4dca;
+    top: -3px;
+    left: -20px;
+}
+
+.select2-container--default .select2-selection--single {
+  border: 1px solid #d1d1d1; /* used to be #aaa */
+  outline: none;
+  border-radius: 0.4rem; /* used to be 4px */
+  height: 39px; } /* used to be 28px */
+  .select2-container--default.select2-container--open .select2-selection--single, .select2-selection--single:focus {
+    border: 1px solid #9b4dca;
+  }
+  .select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 39px; } /* used to be 28px */
+  .select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 35px; /* used to be 26px */
+    position: absolute; }
+
+.select2-container--classic .select2-selection--single .container.select2-selection__rendered {
+    line-height: 39px; } /* used to be 28px */
+
+
+
+
+form {
     margin-left: 15%;
     margin-right: 15%;
     width: 70%;
@@ -45,7 +92,7 @@ input {
 }
 
 a {
-    color: #9226D4;
+    color: #9b4dca;
 }
 
 @media (max-width: 800px) {
