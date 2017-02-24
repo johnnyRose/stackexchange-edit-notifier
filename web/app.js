@@ -12,8 +12,8 @@ app.use(express.static(path.join(__dirname, 'content')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// start background worker
-worker.start();
+// start background worker for post notifications
+worker.startPostNotifier();
 
 // set the view engine to pug
 app.set('view engine', 'pug');
@@ -27,6 +27,8 @@ app.use('/', homeRoute);
 app.listen(port, function () {
    console.log(`Listening on port ${port}`);
 });
+
+
 
 
 

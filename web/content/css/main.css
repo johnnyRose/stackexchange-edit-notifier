@@ -75,13 +75,23 @@ input, .select2-container--default .select2-selection--single .select2-selection
 .select2-container--classic .select2-selection--single .container.select2-selection__rendered {
     line-height: 39px; } /* used to be 28px */
 
-
-
+.select2.select2-container {
+    width: 100% !important;
+}
 
 form {
     margin-left: 15%;
     margin-right: 15%;
     width: 70%;
+}
+
+form input[type=submit] {
+    width: 100%;
+    transition: all 0.2s ease-in-out;
+}
+
+form input[type=submit]:hover {
+    color: #ffa500;
 }
 
 .footer-title {
@@ -91,12 +101,16 @@ form {
     padding-top: 4px;
 }
 
+#footer p {
+    color: #303c36;
+}
+
 a {
     color: #9b4dca;
 }
 
 @media (max-width: 800px) {
-    input {
+    form {
         width: 100%;
         margin-left: 0;
         margin-right: 0;

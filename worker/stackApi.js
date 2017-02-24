@@ -8,10 +8,35 @@ var db = require('../worker/knexDb');
 
 var sitesFilter = '!)Qpa1bGM8fkx6U71QBJr..Pw';
 
+function getAllSites(sites, pageNumber) {
+    sites = sites || [];
+    pageNumber = pageNumber || 1;
+    var sitesPath = `${baseUrl}sites?page=${pageNumber}&pageSize=100&filter=${sitesFilter}`;
+    
+    return queryStackExchangeApi(sitesPath).then(
+        function (results) {
+        
+            sites = sites.concat(results.items);
+            
+            if (results.has_more === true && results.quota_remaining > 0) {
+                if (results.backoff) {
+                    console.log(`Backing off for ${results.backoff} seconds (sites).`);
+                    sleep.sleep(results.backoff);
+                }
+                
+                // Recursive
+                return getAllSites(sites, pageNumber + 1);
+            } else {
+                return sites;
+            }
+        }
+    );
+}
+
 function getAllRecentlyEditedPosts() {
     return new Promise(function (resolve, reject) {
-        getAllRecentlyEditedPostEvents()
-            .then(function (postIds) {
+        getAllRecentlyEditedPostEvents().then(
+            function (postIds) {
                 var postsPath = `posts/${postIds}?pagesize=100&order=desc&sort=activity&site=stackoverflow&filter=!0S2DU84KBii0TP2pzjFB-BAaU`;
                 var url = baseUrl + postsPath;
                 
@@ -27,7 +52,8 @@ function getAllRecentlyEditedPosts() {
                         resolve(results);
                     });
                 });
-            });
+            }
+        );
     });
 }
 
@@ -36,8 +62,8 @@ function getAllRecentlyEditedPostEvents(postIds, pageNumber) {
     pageNumber = pageNumber || 1;
     postIds = postIds || [];
     
-    return getRecentlyEditedPostEvents(pageNumber)
-        .then(function (results) {
+    return getRecentlyEditedPostEvents(pageNumber).then(
+        function (results) {
             postIds = postIds.concat(results.items
                 .filter(function (item) {
                     return item.event_type === "post_edited";
@@ -50,7 +76,7 @@ function getAllRecentlyEditedPostEvents(postIds, pageNumber) {
                 // Having backoff set means the application must not make the same request for that number of seconds.
                 // https://api.stackexchange.com/docs/throttle
                 if (results.backoff) {
-                    console.log(`Backing off for ${results.backoff} seconds.`);
+                    console.log(`Backing off for ${results.backoff} seconds (posts).`);
                     sleep.sleep(results.backoff);
                 }
                 // recursively call to get around annoying promises in loops
@@ -58,7 +84,8 @@ function getAllRecentlyEditedPostEvents(postIds, pageNumber) {
             } else {
                 return postIds.join(";");
             }
-        });
+        }
+    );
 }
 
 function getRecentlyEditedPostEvents(pageNumber) {
@@ -77,13 +104,15 @@ function getRecentlyEditedPostEvents(pageNumber) {
     var url = baseUrl + eventsPath;
     
     return new Promise(function (resolve, reject) {
-        queryStackExchangeApi(url)
-            .then(function (results) {
+        queryStackExchangeApi(url).then(
+            function (results) {
                 resolve(results);
-            })
-            .catch(function (error) {
+            }
+        ).catch(
+            function (error) {
                 reject(error);
-            });
+            }
+        );
     });
 }
 
@@ -136,7 +165,8 @@ function queryStackExchangeApi(url) {
 }
 
 var stackApi = {
-    getAllRecentlyEditedPosts: getAllRecentlyEditedPosts
+    getAllRecentlyEditedPosts: getAllRecentlyEditedPosts,
+    getAllSites: getAllSites,
 };
 
 module.exports = stackApi;

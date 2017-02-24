@@ -61,3 +61,4 @@ knexfile.js
 # database
 dev.sqlite3
 
+web/content/css/select2.min.css
