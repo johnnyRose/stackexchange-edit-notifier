@@ -20,10 +20,16 @@
     "sqlite3": "^3.1.8"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0"
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-minify": "0.0.15",
+    "gulp-uglify": "^2.0.1",
+    "gulp-uglifycss": "^1.0.6",
+    "nodemon": "^1.11.0",
+    "pump": "^1.0.2"
   },
   "scripts": {
-    "start": "cp node_modules/jquery/dist/jquery.min.js web/content/js/jquery.min.js && cp node_modules/select2/dist/css/select2.min.css web/content/css/select2.min.css && cp node_modules/select2/dist/js/select2.min.js web/content/js/select2.min.js && knex migrate:latest && node ./web/app.js",
+    "start": "gulp build && knex migrate:latest && node ./web/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "echo \"test\" && exit 0",
     "nodemon": "nodemon --ignore \"/web/content\" --exec npm run start"
