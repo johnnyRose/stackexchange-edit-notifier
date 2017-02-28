@@ -11,6 +11,11 @@ block content
     p.
       Fill out the form below with the site you want notifications for, your user ID on that site, and an email address to notify.
       You'll immediately begin receiving email notifications any time another user modifies one of your posts.
+      
+    <div ng-controller="mainController">
+      p {{greeting}}
+    </div>
+    
     form(method="post")
       .row
         select(name="site")

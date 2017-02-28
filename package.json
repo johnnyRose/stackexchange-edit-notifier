@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "angular": "^1.6.2",
     "body-parser": "^1.16.1",
     "bootstrap": "^3.3.7",
     "express": "^4.14.1",
@@ -27,10 +28,12 @@
     "gulp-uglify": "^2.0.1",
     "gulp-uglifycss": "^1.0.6",
     "nodemon": "^1.11.0",
-    "pump": "^1.0.2"
+    "pump": "^1.0.2",
+    "pump-promise": "^1.0.0",
+    "run-sequence": "^1.2.2"
   },
   "scripts": {
-    "start": "gulp build && knex migrate:latest && node ./web/app.js",
+    "start": "gulp && knex migrate:latest && node ./web/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "echo \"test\" && exit 0",
     "nodemon": "nodemon --ignore 'web/content/build/*' --ignore 'web/content/dist/*' --exec npm run start"
