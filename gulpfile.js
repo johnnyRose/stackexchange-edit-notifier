@@ -17,6 +17,7 @@ gulp.task('build', function () {
     
     pump([
         gulp.src([
+            'node_modules/reset-css/reset.css',
             'node_modules/milligram/dist/milligram.css',
             'web/content/src/css/roboto-font.css',
             'node_modules/select2/dist/css/select2.css',

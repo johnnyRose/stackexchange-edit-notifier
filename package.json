@@ -13,6 +13,7 @@
     "knex": "^0.12.6",
     "node-cron": "^1.1.2",
     "pug": "^2.0.0-beta10",
+    "reset-css": "^2.2.0",
     "select2": "^4.0.3",
     "sendgrid": "^4.7.1",
     "sequelize": "^3.30.1",
@@ -32,7 +33,7 @@
     "start": "gulp build && knex migrate:latest && node ./web/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "echo \"test\" && exit 0",
-    "nodemon": "nodemon --ignore \"/web/content\" --exec npm run start"
+    "nodemon": "nodemon --ignore 'web/content/build/*' --ignore 'web/content/dist/*' --exec npm run start"
   },
   "repository": {
     "type": "git",
