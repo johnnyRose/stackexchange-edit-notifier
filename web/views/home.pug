@@ -13,7 +13,12 @@ block content
       You'll immediately begin receiving email notifications any time another user modifies one of your posts.
       
     <div ng-controller="mainController">
-      p {{greeting}}
+      <p ng-cloak> {{ greeting }} </p>
+      
+      <div ng-repeat="site in sites">
+        p {{ site.name }}
+      </div>
+      
     </div>
     
     form(method="post")

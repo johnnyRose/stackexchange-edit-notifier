@@ -25,4 +25,11 @@ router.post('/', function (request, response) {
     response.render('home');
 });
 
+router.get('/GetAllSites', function (request, response) {
+    db('stackExchangeSites').select().then(function (sites) {
+       response.setHeader('Content-Type', 'application/json');
+       response.send(JSON.stringify(sites));
+    });
+});
+
 module.exports = router;

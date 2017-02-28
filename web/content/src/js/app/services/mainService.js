@@ -2,5 +2,16 @@
 
 angular.module('StackExchangeEditNotifier')
     .service('mainService', ['$http', function ($http) {
-        console.log("here is the main service edit 777!");
+        
+        function getStackExchangeSites() {
+            return $http({
+                method: 'GET',
+                url: '/GetAllSites',
+            });
+        }
+        
+        return {
+            GetStackExchangeSites: getStackExchangeSites,  
+        };
+        
     }]);
