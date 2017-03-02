@@ -9,6 +9,11 @@ body {
     padding-bottom: 80px;
 }
 
+.row {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .navbar {
     height: 50px;
     width: 100%;
@@ -20,6 +25,11 @@ body {
     font-size: 28pt;
     padding-top: 4px;
     display: inline-block;
+}
+
+/* add more formatting around this so we don't have to include all of bootstrap */
+.ui-select-container {
+    background-color: white;
 }
 
 .navbar .github-logo {

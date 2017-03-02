@@ -1,6 +1,6 @@
 /* global angular */
 
-angular.module('StackExchangeEditNotifier', [])
+angular.module('StackExchangeEditNotifier', ['ngSanitize', 'ui.select'])
    .controller('mainController', ['$scope', 'mainService', function ($scope, mainService) {
       $scope.greeting = "Hello World";
       
@@ -9,7 +9,6 @@ angular.module('StackExchangeEditNotifier', [])
       mainService.GetStackExchangeSites().then(
          function (sites) {
             var siteJson = JSON.parse(sites.data[0].siteData);
-            console.log(siteJson); 
             $scope.sites = siteJson;
          }
       );

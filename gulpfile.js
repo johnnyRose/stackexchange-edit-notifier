@@ -15,10 +15,10 @@ gulp.task('concat', function (done) {
         gulp.src([
             'node_modules/jquery/dist/jquery.js',
             'node_modules/angular/angular.js',
+            'node_modules/angular-sanitize/angular-sanitize.js',
+            'node_modules/ui-select/dist/select.js',
             'web/content/src/js/app/controllers/mainController.js',
             'web/content/src/js/app/services/mainService.js',            
-            'node_modules/select2/dist/js/select2.js',
-            'web/content/src/js/main.js',
         ]),
         concat('all.js'),
         gulp.dest('web/content/build/js')
@@ -28,7 +28,7 @@ gulp.task('concat', function (done) {
                 'node_modules/reset-css/reset.css',
                 'node_modules/milligram/dist/milligram.css',
                 'web/content/src/css/roboto-font.css',
-                'node_modules/select2/dist/css/select2.css',
+                'node_modules/ui-select/dist/select.css',
                 'web/content/src/css/main.css',
             ]),
             concat('all.css'),

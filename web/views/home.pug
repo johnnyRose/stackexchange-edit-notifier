@@ -13,24 +13,23 @@ block content
       You'll immediately begin receiving email notifications any time another user modifies one of your posts.
       
     <div ng-controller="mainController">
-      <p ng-cloak> {{ greeting }} </p>
-      
-      <div ng-repeat="site in sites">
-        p {{ site.name }}
-      </div>
-      
-    </div>
-    
-    form(method="post")
+      form(method="post")
       .row
-        select(name="site")
-          each val in [1, 2, 3, 4, 5]
-            option(value="test value") Test Display #{val}
+        <ui-select ng-model="ctrl.person.selected" theme="bootstrap" ng-disabled="ctrl.disabled" title="Choose a person" append-to-body="true" style="width: 100%;">
+          <ui-select-match placeholder="Select a person in the list or search his name/age...">{{$select.selected.name}}</ui-select-match>
+          <ui-select-choices repeat="site in sites">
+            <div ng-bind-html="site.name | highlight: $select.search"></div>
+            <small>
+              test: <p>{{site.name}}</p>
+            </small>
+          </ui-select-choices>
+        </ui-select>
+          
       .row
         input(type="number", name="userId", placeholder="User ID")
       .row
         input(type="text", name="email", placeholder="Email Address")
       .row
         input(type="submit" value="Start Receiving Notifications")
-
+    </div>
     
