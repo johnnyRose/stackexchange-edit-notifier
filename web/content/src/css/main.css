@@ -32,6 +32,48 @@ body {
     background-color: white;
 }
 
+.ui-select-match {
+    border-radius: 0.4rem;
+    border: .1rem solid #d1d1d1;
+    height: 38px;
+    line-height: 38px;
+}
+
+.ui-select-match.btn-default-focus:focus {
+    border: .1rem solid #9b4dca;
+    outline: none;
+}
+
+.ui-select-toggle {
+    width: 100%;
+    display: inline-block;
+}
+
+.ui-select-placeholder, .ui-select-match-text {
+    margin-left: 10px;
+}
+
+.ui-select-choices-group {
+    list-style: none;
+}
+
+.ui-select-dropdown {
+    border: 1px solid #9b4dca;
+    border-top: none;
+}
+
+.ui-select-search {
+    margin-top: 0;
+}
+
+.ui-select-search:focus {
+    border-radius: 0.4rem 0.4rem 0 0;
+}
+
+.ui-select-choices-row:nth-child(odd) {
+    background-color: #f8f8f8;
+}
+
 .navbar .github-logo {
     height: 50px;
     float: right;
@@ -41,53 +83,17 @@ ul.list-unstyled li, ol.list-unstyled li {
     list-style: none;
 }
 
-
-
-
-.select2 {
-    margin-bottom: 15px;
-}
-
 select {
     border: 1px solid #9b4dca;
 }
 
-input, .select2-container--default .select2-selection--single .select2-selection__rendered {
+input, .ui-select-match-text {
     font-weight: 300;
     font-family: "Roboto";
     font-size: 1em;
-}
-
-.select2-selection__rendered.select2-selection--focus {
-    border: 1px solid #9b4dca;
-    border-radius: 4px;
-}
-
-.select2-dropdown {
-    border: 1px solid #9b4dca;
-    top: -3px;
-    left: -20px;
-}
-
-.select2-container--default .select2-selection--single {
-  border: 1px solid #d1d1d1; /* used to be #aaa */
-  outline: none;
-  border-radius: 0.4rem; /* used to be 4px */
-  height: 39px; } /* used to be 28px */
-  .select2-container--default.select2-container--open .select2-selection--single, .select2-selection--single:focus {
-    border: 1px solid #9b4dca;
-  }
-  .select2-container--default .select2-selection--single .select2-selection__rendered {
-    line-height: 39px; } /* used to be 28px */
-  .select2-container--default .select2-selection--single .select2-selection__arrow {
-    height: 35px; /* used to be 26px */
-    position: absolute; }
-
-.select2-container--classic .select2-selection--single .container.select2-selection__rendered {
-    line-height: 39px; } /* used to be 28px */
-
-.select2.select2-container {
-    width: 100% !important;
+    color: black;
+    margin-bottom: 0;
+    margin-top: 15px;
 }
 
 form {

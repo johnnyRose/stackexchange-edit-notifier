@@ -15,13 +15,12 @@ block content
     <div ng-controller="mainController">
       form(method="post")
       .row
-        <ui-select ng-model="ctrl.person.selected" theme="bootstrap" ng-disabled="ctrl.disabled" title="Choose a person" append-to-body="true" style="width: 100%;">
+        <ui-select ng-cloak ng-model="ctrl.person.selected" theme="bootstrap" ng-disabled="ctrl.disabled" title="Choose a person" append-to-body="true" style="width: 100%;">
           <ui-select-match placeholder="Select a person in the list or search his name/age...">{{$select.selected.name}}</ui-select-match>
-          <ui-select-choices repeat="site in sites">
+          <ui-select-choices repeat="site in sites | filter: { name: $select.search }">
             <div ng-bind-html="site.name | highlight: $select.search"></div>
-            <small>
-              test: <p>{{site.name}}</p>
-            </small>
+            <img ng-src="{{site.icon_url}}" alt="{{site.name}}" style="height: 30px; display: inline-block; vertical-align: middle;" />
+            <small ng-bind-html="site.audience"></small>
           </ui-select-choices>
         </ui-select>
           

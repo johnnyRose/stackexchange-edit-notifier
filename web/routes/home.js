@@ -2,10 +2,7 @@ var db = require('../../worker/knexDb');
 var router = require("express-promise-router")();
 
 router.get('/', function (request, response) {
-    
-    var test = 123;
-    
-    response.render('home', { test: test });
+    response.render('home');
 });
 
 router.post('/', function (request, response) {

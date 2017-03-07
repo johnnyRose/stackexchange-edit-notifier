@@ -13,7 +13,6 @@ gulp.task('concat', function (done) {
     
     pump([
         gulp.src([
-            'node_modules/jquery/dist/jquery.js',
             'node_modules/angular/angular.js',
             'node_modules/angular-sanitize/angular-sanitize.js',
             'node_modules/ui-select/dist/select.js',
