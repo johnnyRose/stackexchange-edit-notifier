@@ -17,7 +17,8 @@
     "sendgrid": "^4.7.1",
     "sleep": "^5.1.0",
     "sqlite3": "^3.1.8",
-    "ui-select": "^0.19.6"
+    "ui-select": "^0.19.6",
+    "uuid": "^3.0.1"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

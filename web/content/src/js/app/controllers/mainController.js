@@ -1,17 +1,33 @@
 /* global angular */
 
 angular.module('StackExchangeEditNotifier', ['ngSanitize', 'ui.select'])
-   .controller('mainController', ['$scope', 'mainService', function ($scope, mainService) {
-      $scope.greeting = "Hello World";
-      
+   .controller('mainController', ['mainService', '$http', function (mainService, $http) {
+
       var vm = this;
-       
+
       mainService.GetStackExchangeSites().then(
          function (sites) {
-            var siteJson = JSON.parse(sites.data[0].siteData);
-            $scope.sites = siteJson;
+            vm.sites = JSON.parse(sites.data[0].siteData);
          }
       );
+      
+      vm.submit = function () {
+         var form = {
+            site: vm.s && vm.s.selected.api_site_parameter,
+            userId: vm.userId,
+            email: vm.email,
+         };
+         
+         if (form.site && form.userId && form.email) {
+            $http.post('/', form).then(
+               function (response) {
+                  if (response.data.success) {
+                     vm.formSubmitted = true;
+                  }
+               }
+            );
+         }
+      };
       
       return vm;
 }]);

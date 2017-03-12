@@ -37,13 +37,18 @@ function getAllRecentlyEditedPosts() {
     return new Promise(function (resolve, reject) {
         getAllRecentlyEditedPostEvents().then(
             function (postIds) {
+                // TODO: Can only query 100 Ids at once with this, could be limited: https://api.stackexchange.com/docs/posts-by-ids
                 var postsPath = `posts/${postIds}?pagesize=100&order=desc&sort=activity&site=stackoverflow&filter=!0S2DU84KBii0TP2pzjFB-BAaU`;
                 var url = baseUrl + postsPath;
                 
                 queryStackExchangeApi(url).then(function (results) {
                     db('users').select().then(function (users) {
                         results.items = results.items.filter(function (item) {
-                            return (item.owner.user_id !== item.last_editor.user_id &&
+                            //if (!item.last_editor) {
+                            //    console.log(item);
+                            //}
+                            // TODO: Why is last_editor sometimes undefined?
+                            return (item.last_editor && item.owner.user_id !== item.last_editor.user_id &&
                                 users.some(function (user) {
                                     return item.owner.user_id === user.userId;
                                 }));

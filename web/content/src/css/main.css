@@ -30,6 +30,7 @@ body {
 /* add more formatting around this so we don't have to include all of bootstrap */
 .ui-select-container {
     background-color: white;
+    width: 100%;
 }
 
 .ui-select-match {
@@ -77,6 +78,11 @@ body {
 .navbar .github-logo {
     height: 50px;
     float: right;
+}
+
+img.site-icon {
+    height: 30px; 
+    vertical-align: middle;
 }
 
 ul.list-unstyled li, ol.list-unstyled li {

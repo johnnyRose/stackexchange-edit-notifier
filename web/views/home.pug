@@ -1,34 +1,57 @@
 extends layout.pug
 
 block content
-  .container
-    p.
-      This tool allows you to receive email notifications when your
-      posts on the Stack Exchange Network are edited.
-      This includes <a href="http://stackoverflow.com/">Stack Overflow</a>, <a href="http://superuser.com/">Super User</a>,
-      <a href="http://serverfault.com/">Server Fault</a>, and many more.
-      
-    p.
-      Fill out the form below with the site you want notifications for, your user ID on that site, and an email address to notify.
-      You'll immediately begin receiving email notifications any time another user modifies one of your posts.
-      
-    <div ng-controller="mainController">
-      form(method="post")
-      .row
-        <ui-select ng-cloak ng-model="ctrl.person.selected" theme="bootstrap" ng-disabled="ctrl.disabled" title="Choose a person" append-to-body="true" style="width: 100%;">
-          <ui-select-match placeholder="Select a person in the list or search his name/age...">{{$select.selected.name}}</ui-select-match>
-          <ui-select-choices repeat="site in sites | filter: { name: $select.search }">
-            <div ng-bind-html="site.name | highlight: $select.search"></div>
-            <img ng-src="{{site.icon_url}}" alt="{{site.name}}" style="height: 30px; display: inline-block; vertical-align: middle;" />
-            <small ng-bind-html="site.audience"></small>
-          </ui-select-choices>
-        </ui-select>
+  <div ng-controller="mainController as ctrl">
+    <div class="container">
+      p.
+        This tool allows you to receive email notifications when your
+        posts on the Stack Exchange Network are edited.
+        This includes <a href="http://stackoverflow.com/">Stack Overflow</a>, <a href="http://superuser.com/">Super User</a>,
+        <a href="http://serverfault.com/">Server Fault</a>, and many more.
+        
+      <div ng-if="!ctrl.formSubmitted">
+        
+        p.
+          Fill out the form below with the site you want notifications for, your user ID on that site, and an email address to notify.
+          You'll immediately begin receiving email notifications any time another user modifies one of your posts.
           
-      .row
-        input(type="number", name="userId", placeholder="User ID")
-      .row
-        input(type="text", name="email", placeholder="Email Address")
-      .row
-        input(type="submit" value="Start Receiving Notifications")
+        <form novalidate method="post" name="form" ng-submit="ctrl.submit()">
+          .row
+            <ui-select name="site" required="" ng-cloak ng-model="ctrl.s.selected" theme="bootstrap" append-to-body="true">
+              <ui-select-match placeholder="Select a site...">
+                <img ng-src="{{$select.selected.icon_url}}" alt="{{$select.selected.name}}" class="site-icon" />
+                <small>{{$select.selected.name}}</small>
+              </ui-select-match>
+              <ui-select-choices repeat="site in ctrl.sites | filter: { name: $select.search }">
+                <div ng-bind-html="site.name | highlight: $select.search"></div>
+                <img ng-src="{{site.icon_url}}" alt="{{site.name}}" class="site-icon" />
+                <small ng-bind-html="site.audience"></small>
+              </ui-select-choices>
+            </ui-select>
+          .row
+            <span ng-show="(form.$submitted || form.site.$touched) && form.site.$error.required">Please select a site.</span>
+              
+          .row
+            input(type="number", name="userId", placeholder="User ID", ng-model="ctrl.userId", required="")
+          .row
+            <span ng-show="(form.$submitted || form.userId.$touched) && form.userId.$error.required">Please provide your user ID.</span>
+            
+          .row
+            input(type="email", name="email", placeholder="Notification Email Address" ng-model="ctrl.email", required="")
+          .row
+            <div ng-show="form.$submitted || form.email.$touched">
+              <span ng-show="form.email.$error.required">Please provide your email.</span>
+              <span ng-show="form.email.$error.email">Please provide a valid email address.</span>
+            </div>
+            
+          .row
+            input(type="submit", value="Start Receiving Notifications")
+        </form>
+      </div>
+      
+      <div ng-if="ctrl.formSubmitted">
+        <h2>Thanks!</h2>
+        <h3>Now you'll receive notifications any time one of your posts is edited.</h3>
+      </div>
     </div>
-    
+  </div>
